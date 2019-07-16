@@ -1,0 +1,19 @@
+package questions;
+
+import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.Question;
+import net.serenitybdd.screenplay.questions.Text;
+import ui.ToDoMvcPage;
+
+import java.util.List;
+
+public class AddedToDoItems implements Question<List<String>> {
+
+    public static Question<List<String>> displayed() {
+        return new AddedToDoItems();
+    }
+
+    public List<String> answeredBy(Actor actor) {
+        return Text.of(ToDoMvcPage.ALL_TODO_ITEMS).viewedBy(actor).asList();
+    }
+}
