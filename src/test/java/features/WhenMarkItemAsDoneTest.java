@@ -26,11 +26,11 @@ public class WhenMarkItemAsDoneTest {
     public static List<String> LIST_OF_ITEMS_TO_BE_ADDED = Arrays.asList("1 Item", "2 Item", "3 Item");
 
     @Managed
-    public WebDriver Browser;
+    public WebDriver browser;
 
     @Before
     public void userCanAddAFewToDoItems() {
-        user.can(BrowseTheWeb.with(Browser));
+        user.can(BrowseTheWeb.with(browser));
         givenThat(user).wasAbleTo(StartWith.ToDoMvcRealTimeExample());
         and(user).wasAbleTo(AddNewToDo.items(LIST_OF_ITEMS_TO_BE_ADDED));
     }

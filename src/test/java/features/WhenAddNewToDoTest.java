@@ -27,11 +27,11 @@ public class WhenAddNewToDoTest {
     public static List<String> LIST_OF_ITEMS_TO_BE_ADDED = Arrays.asList("First Item", "Second Item", "Third Item");
 
     @Managed
-    public WebDriver Browser;
+    public WebDriver browser;
 
     @Before
     public void userCanBrowseTheWeb(){
-        user.can(BrowseTheWeb.with(Browser));
+        user.can(BrowseTheWeb.with(browser));
     }
 
     @Test
