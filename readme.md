@@ -5,7 +5,9 @@ This example shows the way of UI tests implementation using ScreenPlay pattern w
 To run the tests on the particular browser you can use maven:
 
 For IE: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=ie -Dwebdriver.provided.ie=webDriver.IeDriverManager``` 
+
 For Chrome: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=chrome -Dwebdriver.provided.chrome=webDriver.ChromeDriverManager``` 
+
 For FireFox: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=firefox -Dwebdriver.provided.firefox=webDriver.FireFoxDriverManager```
 
 or
