@@ -11,6 +11,19 @@ This example shows the way of UI tests implementation using ScreenPlay pattern w
 3. Easy to maintain and extend test framework;
 4. Focus on business actions rather that on pages.
 
+## Project's structure
+
+ - *src\main\java\questions*: classes describes elemants and conditions which can be chacked during the test;
+ - *src\main\java\tasks*: classes describes autonomous actions user can perform on the UI (business actions);
+ - *src\main\java\ui*: classes for UI elements which are used in tasks; 
+ - *src\main\java\webDriver*: package for webDriver's managers;
+ - *src\test\java\features*: package with tests.
+ 
+## Test Implementation
+
+ - New test's implementation is to be placed in *src\test\java\features* package;
+ - Test class should have annotation ```@RunWith(SerenityRunner.class)```;
+ - Test class should have exemplar of ```Actor``` class, playing the role of the user interacting with UI;
 
 ## How to run the tests
 
