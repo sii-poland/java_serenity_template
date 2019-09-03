@@ -1,6 +1,18 @@
 # ScreenPlay pattern example
 
-This example shows the way of UI tests implementation using ScreenPlay pattern with Serenity BDD framework.
+This example shows the way of UI tests implementation using ScreenPlay pattern with Serenity BDD framework written in Java.
+
+## Screenplay pattern benefits
+
+1. Using SOLID principles in test development:
+	- Single responsibility principle;
+	- Open-closed principle;
+2. Easy to read test cases right in the test class;
+3. Easy to maintain and extend test framework;
+4. Focus on business actions rather that on pages.
+
+
+## How to run the tests
 
 To run the tests on the particular browser you can use maven:
 
@@ -20,3 +32,6 @@ webdriver.provided.type = chrome
 webdriver.provided.chrome = webDriver.ChromeDriverManager
 ```
 
+## Test report
+
+The test report generated after ``` verify``` maven commend has finished. Test report is locaten in the file ```\target\site\serenity\index.html``` 
