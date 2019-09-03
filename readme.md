@@ -34,4 +34,4 @@ webdriver.provided.chrome = webDriver.ChromeDriverManager
 
 ## Test report
 
-The test report generated after ``` verify``` maven commend has finished. Test report is locaten in the file ```\target\site\serenity\index.html``` 
+The test report is being generated after ``` verify``` maven command has finished. Test report is locaten in the file ```\target\site\serenity\index.html``` 
