@@ -1,4 +1,4 @@
-# ScreenPlay pattern usage in test framework template
+# ScreenPlay pattern usage with Serenity test framework
 
 This example shows the way of UI tests implementation using ScreenPlay pattern with Serenity BDD framework written in Java.
 
