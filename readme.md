@@ -1,4 +1,4 @@
-# ScreenPlay pattern example
+# ScreenPlay pattern usage in test framework template
 
 This example shows the way of UI tests implementation using ScreenPlay pattern with Serenity BDD framework written in Java.
 
@@ -13,8 +13,8 @@ This example shows the way of UI tests implementation using ScreenPlay pattern w
 
 ## Project's structure
 
- - *src\main\java\questions*: classes describes elemants and conditions which can be chacked during the test;
- - *src\main\java\tasks*: classes describes autonomous actions user can perform on the UI (business actions);
+ - *src\main\java\questions*: classes describe elements and conditions which can be chacked during the test;
+ - *src\main\java\tasks*: classes describe autonomous actions user can perform on the UI (business actions);
  - *src\main\java\ui*: classes for UI elements which are used in tasks; 
  - *src\main\java\webDriver*: package for webDriver's managers;
  - *src\test\java\features*: package with tests.
@@ -29,15 +29,15 @@ This example shows the way of UI tests implementation using ScreenPlay pattern w
 
 To run the tests on the particular browser you can use maven:
 
-For IE: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=ie -Dwebdriver.provided.ie=webDriver.IeDriverManager``` 
+ - For IE: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=ie -Dwebdriver.provided.ie=webDriver.IeDriverManager``` 
 
-For Chrome: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=chrome -Dwebdriver.provided.chrome=webDriver.ChromeDriverManager``` 
+ - For Chrome: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=chrome -Dwebdriver.provided.chrome=webDriver.ChromeDriverManager``` 
 
-For FireFox: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=firefox -Dwebdriver.provided.firefox=webDriver.FireFoxDriverManager```
+ - For FireFox: ``` mvn clean verify -Dwebdriver.driver=provided -Dwebdriver.provided.type=firefox -Dwebdriver.provided.firefox=webDriver.FireFoxDriverManager```
 
 or
 
-you can run ``` mvn clean verify``` with serenity.properties file, where needed parameters will be uncommented,
+you can run ``` mvn clean verify``` with serenity.properties file, using only needed parameters,
 for example:
 ```
 webdriver.driver = provided
@@ -47,4 +47,4 @@ webdriver.provided.chrome = webDriver.ChromeDriverManager
 
 ## Test report
 
-The test report is being generated after ``` verify``` maven command has finished. Test report is locaten in the file ```\target\site\serenity\index.html``` 
+The test report is being generated after ``` verify``` maven command has finished. Test report is located in the file ```\target\site\serenity\index.html``` 
