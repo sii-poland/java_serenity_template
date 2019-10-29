@@ -35,15 +35,16 @@ import static org.hamcrest.Matchers.*;
 
 @RunWith(SerenityRunner.class)
 public class WhenRegisteredUserLogsInTest {
-    private PrestaUser prestaUser = PrestaUser.builder()
+    private final static int POPULAR_PROD_COUNT = 8;
+    private final PrestaUser prestaUser = PrestaUser.builder()
             .email("tkuran@sii.pl")
             .name("Tom Kuran")
             .password("p@ssword").build();
 
-    public Actor user = Actor.named(prestaUser.getName());
+    private final Actor user = Actor.named(prestaUser.getName());
 
     @Managed
-    public WebDriver browser;
+    private WebDriver browser;
 
     @Before
     public void userCanBrowseAsAuthenticatedClient() {
@@ -56,7 +57,7 @@ public class WhenRegisteredUserLogsInTest {
         givenThat(user).wasAbleTo(StartPresta.onLoginPage());
         when(user).attemptsTo(LogIn.wihtCredentials());
         then(user).should(seeThat(DisplayedUserName.is(), is(prestaUser.getName())));
-        then(user).should(seeThat(PopularProducts.are(), iterableWithSize(8)));
+        then(user).should(seeThat(PopularProducts.are(), iterableWithSize(POPULAR_PROD_COUNT)));
         andThat(user).should(seeThat(PopularProducts.are(), hasItem(hasProperty("discount", equalTo("-20%")))));
     }
 }

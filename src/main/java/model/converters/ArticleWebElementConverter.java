@@ -32,7 +32,7 @@ public class ArticleWebElementConverter {
     public static Product getProduct(WebElementFacade article) {
 
         if (article.hasClass("product-miniature")) {
-            Optional<WebElement> a;
+            Optional<WebElement> element;
             return Product.builder()
                     .imageUrl(
                             getSubElement(article, ARTICLE_IMG).get().getAttribute("src")
@@ -44,10 +44,10 @@ public class ArticleWebElementConverter {
                             getSubElement(article, ARTICLE_NAME).get().getText()
                     )
                     .price(
-                            Double.valueOf(getSubElement(article, ARTICLE_PRICE).get().getText().substring(1))
+                            Double.parseDouble(getSubElement(article, ARTICLE_PRICE).get().getText().substring(1))
                     )
                     .discount(
-                            (a = getSubElement(article, ARTICLE_DISCOUNT)).isPresent() ? a.get().getText() : "0"
+                            (element = getSubElement(article, ARTICLE_DISCOUNT)).isPresent() ? element.get().getText() : "0"
                     )
                     .build();
         } else throw new UnsupportedOperationException("Not an article element");

@@ -34,7 +34,6 @@ public class PopularProducts implements Question<List<Product>> {
 
     @Override
     public List<Product> answeredBy(Actor actor) {
-        List<Product> collect = homePage.getAllPopularProducts().stream().map(ArticleWebElementConverter::getProduct).collect(Collectors.toList());
-        return collect;
+        return homePage.getAllPopularProducts().stream().map(ArticleWebElementConverter::getProduct).collect(Collectors.toList());
     }
 }
