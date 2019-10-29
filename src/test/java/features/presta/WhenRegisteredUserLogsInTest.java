@@ -17,10 +17,11 @@ package features.presta;
 
 import abilities.Authenticate;
 import model.PrestaUser;
-import net.serenitybdd.junit.runners.SerenityRunner;
+import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
+import net.thucydides.junit.annotations.TestData;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,18 +31,38 @@ import questions.presta.PopularProducts;
 import tasks.presta.LogIn;
 import tasks.presta.StartPresta;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import static net.serenitybdd.screenplay.GivenWhenThen.*;
 import static org.hamcrest.Matchers.*;
 
-@RunWith(SerenityRunner.class)
+@RunWith(SerenityParameterizedRunner.class)
 public class WhenRegisteredUserLogsInTest {
-    private final static int POPULAR_PROD_COUNT = 8;
+
     private final PrestaUser prestaUser = PrestaUser.builder()
             .email("tkuran@sii.pl")
             .name("Tom Kuran")
             .password("p@ssword").build();
 
+    private final int expectedProductsCount;
+    private final String discount;
+
+    public WhenRegisteredUserLogsInTest(int expectedProductsCount, String discount) {
+        this.expectedProductsCount = expectedProductsCount;
+        this.discount = discount;
+    }
+
     private final Actor user = Actor.named(prestaUser.getName());
+
+    @TestData
+    public static Collection<Object[]> testData() {
+        return Arrays.asList(new Object[][]{
+                {8, "-20%"},
+                {8, "-25%"},
+                {9, "0"}
+        });
+    }
 
     @Managed
     private WebDriver browser;
@@ -57,7 +78,7 @@ public class WhenRegisteredUserLogsInTest {
         givenThat(user).wasAbleTo(StartPresta.onLoginPage());
         when(user).attemptsTo(LogIn.wihtCredentials());
         then(user).should(seeThat(DisplayedUserName.is(), is(prestaUser.getName())));
-        then(user).should(seeThat(PopularProducts.are(), iterableWithSize(POPULAR_PROD_COUNT)));
-        andThat(user).should(seeThat(PopularProducts.are(), hasItem(hasProperty("discount", equalTo("-20%")))));
+        then(user).should(seeThat(PopularProducts.are(), iterableWithSize(expectedProductsCount)));
+        and(user).should(seeThat(PopularProducts.are(), hasItem(hasProperty("discount", equalTo(discount)))));
     }
 }
