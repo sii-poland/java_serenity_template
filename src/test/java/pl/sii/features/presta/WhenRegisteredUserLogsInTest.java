@@ -19,6 +19,7 @@ import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
+import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.annotations.TestData;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +39,7 @@ import static net.serenitybdd.screenplay.GivenWhenThen.*;
 import static org.hamcrest.Matchers.*;
 
 @RunWith(SerenityParameterizedRunner.class)
+@Concurrent
 public class WhenRegisteredUserLogsInTest {
 
     private final PrestaUser prestaUser = PrestaUser.builder()
@@ -48,6 +50,7 @@ public class WhenRegisteredUserLogsInTest {
     private final int expectedProductsCount;
     private final String discount;
     private final Actor user = Actor.named(prestaUser.getName());
+
     @Managed
     private WebDriver browser;
 
@@ -61,7 +64,8 @@ public class WhenRegisteredUserLogsInTest {
         return Arrays.asList(new Object[][]{
                 {8, "-20%"},
                 {8, "-25%"},
-                {9, "0"}
+                {9, "0"},
+                {8, "0"}
         });
     }
 
@@ -76,7 +80,11 @@ public class WhenRegisteredUserLogsInTest {
         givenThat(user).wasAbleTo(StartPresta.onLoginPage());
         when(user).attemptsTo(LogIn.wihtCredentials());
         then(user).should(seeThat(DisplayedUserName.is(), is(prestaUser.getName())));
-        then(user).should(seeThat(PopularProducts.are(), iterableWithSize(expectedProductsCount)));
-        and(user).should(seeThat(PopularProducts.are(), hasItem(hasProperty("discount", equalTo(discount)))));
+        then(user).should(seeThat(PopularProducts.are(),
+                allOf(
+                        iterableWithSize(this.expectedProductsCount),
+                        hasItem(hasProperty("discount", equalTo(this.discount)))
+                )
+        ));
     }
 }
