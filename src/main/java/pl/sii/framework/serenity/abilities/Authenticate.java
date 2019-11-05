@@ -41,12 +41,17 @@ public class Authenticate implements Ability {
         return actor.abilityTo(Authenticate.class);
     }
 
-    public String withUsername() {
+    public String getUsername() {
         return username;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return "Store user credentials";
     }
 }
 

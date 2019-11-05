@@ -26,6 +26,7 @@ import pl.sii.framework.serenity.ui.presta.LogInPage;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 public class LogIn implements Task {
+
     public static LogIn wihtCredentials() {
         return instrumented(LogIn.class);
     }
@@ -34,7 +35,7 @@ public class LogIn implements Task {
     @Step("User logs in as {0}")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Enter.theValue(Authenticate.as(actor).withUsername()).into(LogInPage.EMAIL),
+                Enter.theValue(Authenticate.as(actor).getUsername()).into(LogInPage.EMAIL),
                 Enter.theValue(Authenticate.as(actor).getPassword()).into(LogInPage.PASSWORD),
                 Click.on(LogInPage.SIGN_IN_BTN)
         );

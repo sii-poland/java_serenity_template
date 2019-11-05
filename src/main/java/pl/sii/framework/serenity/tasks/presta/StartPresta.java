@@ -31,7 +31,7 @@ public class StartPresta implements Task {
         return instrumented(StartPresta.class);
     }
 
-
+    @Override
     @Step("{0} starts Presta shop on login page")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(Open.browserOn().the(logInPage));
