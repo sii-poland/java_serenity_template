@@ -13,17 +13,17 @@
  * limitations under the License.
  */
 
-package webDriver;
+package pl.sii.framework.serenity.webDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-public class FireFoxDriverManager extends AbstractWebDriverManger {
+public class ChromeDriverManager extends AbstractWebDriverManger {
 
     @Override
     public WebDriver newDriver() {
-        WebDriverManager.firefoxdriver().setup();
-        return new FirefoxDriver();
+        WebDriverManager.chromedriver().setup();
+        return new ChromeDriver();
     }
 }

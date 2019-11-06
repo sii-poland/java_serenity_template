@@ -13,10 +13,9 @@
  * limitations under the License.
  */
 
-package features;
+package pl.sii.features.todomvc;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
-
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
@@ -24,44 +23,37 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import questions.ActiveToDoItems;
-import questions.AddedToDoItems;
-import tasks.AddNewToDo;
-import tasks.StartWith;
+import pl.sii.framework.serenity.questions.ActiveToDoItems;
+import pl.sii.framework.serenity.questions.CompletedToDoItems;
+import pl.sii.framework.serenity.tasks.AddNewToDo;
+import pl.sii.framework.serenity.tasks.MarkAsDone;
+import pl.sii.framework.serenity.tasks.StartWith;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
 
 @RunWith(SerenityRunner.class)
-public class WhenAddNewToDoTest {
-    public Actor user = Actor.named("User");
-    public static List<String> ITEM_TO_BE_ADDED = Arrays.asList("First thing to do");
-    public static List<String> LIST_OF_ITEMS_TO_BE_ADDED = Arrays.asList("First Item", "Second Item", "Third Item");
-
+public class WhenMarkItemAsDoneTest {
+    public static List<String> LIST_OF_ITEMS_TO_BE_ADDED = Arrays.asList("1 Item", "2 Item", "3 Item");
     @Managed
     public WebDriver browser;
+    Actor user = Actor.named("User");
 
     @Before
-    public void userCanBrowseTheWeb(){
+    public void userCanAddAFewToDoItems() {
         user.can(BrowseTheWeb.with(browser));
+        givenThat(user).wasAbleTo(StartWith.ToDoMvcRealTimeExample());
+        and(user).wasAbleTo(AddNewToDo.items(LIST_OF_ITEMS_TO_BE_ADDED));
     }
 
     @Test
-    public void whenAddingOneToDoItemTest() {
-        givenThat(user).wasAbleTo(StartWith.ToDoMvcRealTimeExample());
-        when(user).attemptsTo(AddNewToDo.items(ITEM_TO_BE_ADDED));
-        then(user).should(seeThat(AddedToDoItems.displayed(),is(ITEM_TO_BE_ADDED)));
-        and(user).should(seeThat(ActiveToDoItems.displayed(),is(ITEM_TO_BE_ADDED)));
-    }
-
-    @Test
-    public void whenAddingThreeToDoItemsTest() {
-        givenThat(user).wasAbleTo(StartWith.ToDoMvcRealTimeExample());
-        when(user).attemptsTo(AddNewToDo.items(LIST_OF_ITEMS_TO_BE_ADDED));
-        then(user).should(seeThat(AddedToDoItems.displayed(),is(LIST_OF_ITEMS_TO_BE_ADDED)));
-        and(user).should(seeThat(ActiveToDoItems.displayed(),is(LIST_OF_ITEMS_TO_BE_ADDED)));
+    public void whenMarkAllItemsAsDone() {
+        when(user).attemptsTo(MarkAsDone.items(LIST_OF_ITEMS_TO_BE_ADDED));
+        then(user).should(seeThat(CompletedToDoItems.displayed(), is(LIST_OF_ITEMS_TO_BE_ADDED)));
+        and(user).should(seeThat(ActiveToDoItems.displayed(), empty()));
     }
 }

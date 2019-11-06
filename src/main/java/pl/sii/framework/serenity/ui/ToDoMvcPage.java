@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package ui;
+package pl.sii.framework.serenity.ui;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.screenplay.targets.Target;
@@ -31,15 +31,15 @@ public class ToDoMvcPage extends PageObject {
 
     public static final Target ACTIVE_TODO_ITEMS = Target.the("Todo items marked as 'Completed'").locatedBy("//li[@class='ng-scope']//label[@class='ng-binding']");
 
-    public static Target getCompletedCheckboxForItem(String item){
-        return Target.the("'Completed' checkbox for '" + item + "' item").locatedBy("//label[text()='"+item+"']/preceding-sibling::input[@type='checkbox']");
+    public static Target getCompletedCheckboxForItem(String item) {
+        return Target.the("'Completed' checkbox for '" + item + "' item").locatedBy("//label[text()='" + item + "']/preceding-sibling::input[@type='checkbox']");
     }
 
-    public static Target getDeleteButtonForItem(String item){
-        return Target.the("'Delete' button for '" + item + "' item").locatedBy("//label[text()='"+item+"']/following-sibling::button[@class='destroy']");
+    public static Target getDeleteButtonForItem(String item) {
+        return Target.the("'Delete' button for '" + item + "' item").locatedBy("//label[text()='" + item + "']/following-sibling::button[@class='destroy']");
     }
 
-    public static Target getItem(String item){
-        return Target.the("Item '" + item + "'").locatedBy("//ul[@class='todo-list']//label[text()='"+item+"']");
+    public static Target getItem(String item) {
+        return Target.the("Item '" + item + "'").locatedBy("//ul[@class='todo-list']//label[text()='" + item + "']");
     }
 }

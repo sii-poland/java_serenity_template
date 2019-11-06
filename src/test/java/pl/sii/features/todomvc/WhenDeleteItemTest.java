@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package features;
+package pl.sii.features.todomvc;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
@@ -23,25 +23,25 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import questions.ActiveToDoItems;
-import questions.CompletedToDoItems;
-import tasks.AddNewToDo;
-import tasks.MarkAsDone;
-import tasks.StartWith;
+import pl.sii.framework.serenity.questions.AddedToDoItems;
+import pl.sii.framework.serenity.tasks.AddNewToDo;
+import pl.sii.framework.serenity.tasks.Delete;
+import pl.sii.framework.serenity.tasks.StartWith;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 
 @RunWith(SerenityRunner.class)
-public class WhenMarkItemAsDoneTest {
-    Actor user = Actor.named("User");
+public class WhenDeleteItemTest {
     public static List<String> LIST_OF_ITEMS_TO_BE_ADDED = Arrays.asList("1 Item", "2 Item", "3 Item");
-
+    public static List<String> LIST_OF_ITEMS_TO_BE_DELETED = Arrays.asList("1 Item", "3 Item");
+    public static List<String> LIST_OF_LEFT_ITEMS = Arrays.asList("2 Item");
     @Managed
     public WebDriver browser;
+    Actor user = Actor.named("User");
 
     @Before
     public void userCanAddAFewToDoItems() {
@@ -51,9 +51,8 @@ public class WhenMarkItemAsDoneTest {
     }
 
     @Test
-    public void whenMarkAllItemsAsDone() {
-        when(user).attemptsTo(MarkAsDone.items(LIST_OF_ITEMS_TO_BE_ADDED));
-        then(user).should(seeThat(CompletedToDoItems.displayed(),is(LIST_OF_ITEMS_TO_BE_ADDED)));
-        and(user).should(seeThat(ActiveToDoItems.displayed(),empty()));
+    public void whenDeleteTwoFromThreeItems() {
+        when(user).attemptsTo(Delete.items(LIST_OF_ITEMS_TO_BE_DELETED));
+        then(user).should(seeThat(AddedToDoItems.displayed(), is(LIST_OF_LEFT_ITEMS)));
     }
 }

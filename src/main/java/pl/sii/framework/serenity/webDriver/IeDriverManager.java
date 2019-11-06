@@ -13,17 +13,23 @@
  * limitations under the License.
  */
 
-package webDriver;
+package pl.sii.framework.serenity.webDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class ChromeDriverManager extends AbstractWebDriverManger {
+public class IeDriverManager extends AbstractWebDriverManger {
 
     @Override
     public WebDriver newDriver() {
-        WebDriverManager.chromedriver().setup();
-        return new ChromeDriver();
+        WebDriverManager.iedriver().setup();
+        DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+        capabilities.setCapability("ignoreProtectedModeSettings", true);
+        capabilities.setCapability("ignoreZoomSetting", true);
+        capabilities.setCapability("nativeEvents", true);
+        capabilities.setCapability("acceptSslCerts", true);
+        return new InternetExplorerDriver(capabilities);
     }
 }

@@ -13,18 +13,23 @@
  * limitations under the License.
  */
 
-package webDriver;
+package pl.sii.framework.serenity.questions;
 
-import net.thucydides.core.webdriver.DriverSource;
-import org.openqa.selenium.WebDriver;
+import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.Question;
+import net.serenitybdd.screenplay.questions.Text;
+import pl.sii.framework.serenity.ui.ToDoMvcPage;
 
-public abstract class AbstractWebDriverManger implements DriverSource {
+import java.util.List;
 
-    @Override
-    public abstract WebDriver newDriver();
+public class ActiveToDoItems implements Question<List<String>> {
 
-    @Override
-    public boolean takesScreenshots() {
-        return true;
+    public static Question<List<String>> displayed() {
+        return new ActiveToDoItems();
+    }
+
+    public List<String> answeredBy(Actor actor) {
+        return Text.of(ToDoMvcPage.ACTIVE_TODO_ITEMS).viewedBy(actor).asList();
     }
 }
+

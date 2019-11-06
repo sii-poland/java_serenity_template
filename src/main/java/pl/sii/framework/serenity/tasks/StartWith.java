@@ -13,35 +13,26 @@
  * limitations under the License.
  */
 
-package tasks;
+package pl.sii.framework.serenity.tasks;
 
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.actions.Open;
 import net.thucydides.core.annotations.Step;
-import ui.ToDoMvcPage;
-
-import java.util.List;
+import pl.sii.framework.serenity.ui.ToDoMvcPage;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
-public class MarkAsDone implements Task {
-    private List<String> todoItems;
+public class StartWith implements Task {
 
-    public MarkAsDone(List<String> todoItems) {
-        this.todoItems = todoItems;
+    public ToDoMvcPage toDoMvcPage;
+
+    public static StartWith ToDoMvcRealTimeExample() {
+        return instrumented(StartWith.class);
     }
 
-    @Step("{0} marks todo-items as done in the list")
+    @Step("{0} starts ToDoMVC real time application")
     public <T extends Actor> void performAs(T actor) {
-        for (String item : todoItems) {
-            actor.attemptsTo(
-                    Click.on(ToDoMvcPage.getCompletedCheckboxForItem(item))
-            );
-        }
-    }
-
-    public static MarkAsDone items(List<String> todoItems) {
-        return instrumented(MarkAsDone.class, todoItems);
+        actor.attemptsTo(Open.browserOn().the(toDoMvcPage));
     }
 }

@@ -13,35 +13,27 @@
  * limitations under the License.
  */
 
-package tasks;
+package pl.sii.framework.serenity.tasks.presta;
 
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actions.JavaScriptClick;
+import net.serenitybdd.screenplay.actions.Open;
 import net.thucydides.core.annotations.Step;
-import ui.ToDoMvcPage;
-
-import java.util.List;
+import pl.sii.framework.serenity.ui.presta.LogInPage;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
-public class Delete implements Task {
-    private List<String> todoItems;
+public class StartPresta implements Task {
 
-    public Delete(List<String> todoItems) {
-        this.todoItems = todoItems;
+    public LogInPage logInPage;
+
+    public static StartPresta onLoginPage() {
+        return instrumented(StartPresta.class);
     }
 
-    @Step("{0} deletes todo-items from the list")
+    @Override
+    @Step("{0} starts Presta shop on login page")
     public <T extends Actor> void performAs(T actor) {
-        for (String item : todoItems) {
-            actor.attemptsTo(
-                    JavaScriptClick.on(ToDoMvcPage.getDeleteButtonForItem(item))
-            );
-        }
-    }
-
-    public static Delete items(List<String> todoItems) {
-        return instrumented(Delete.class, todoItems);
+        actor.attemptsTo(Open.browserOn().the(logInPage));
     }
 }

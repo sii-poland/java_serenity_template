@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-package tasks;
+package pl.sii.framework.serenity.tasks;
 
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Enter;
 import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.Keys;
-import ui.ToDoMvcPage;
+import pl.sii.framework.serenity.ui.ToDoMvcPage;
 
 import java.util.List;
 
@@ -33,16 +33,16 @@ public class AddNewToDo implements Task {
         this.todoItems = todoItems;
     }
 
+    public static AddNewToDo items(List<String> todoItems) {
+        return instrumented(AddNewToDo.class, todoItems);
+    }
+
     @Step("{0} adds todo-items to ToDo list")
     public <T extends Actor> void performAs(T actor) {
-        for(String item: todoItems){
+        for (String item : todoItems) {
             actor.attemptsTo(
                     Enter.theValue(item).into(ToDoMvcPage.TODO_INPUT).thenHit(Keys.ENTER)
             );
         }
-    }
-
-    public static AddNewToDo items(List<String> todoItems) {
-        return instrumented(AddNewToDo.class, todoItems);
     }
 }

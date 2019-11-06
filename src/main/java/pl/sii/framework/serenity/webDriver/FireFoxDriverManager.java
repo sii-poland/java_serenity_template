@@ -13,22 +13,17 @@
  * limitations under the License.
  */
 
-package questions;
+package pl.sii.framework.serenity.webDriver;
 
-import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.Question;
-import net.serenitybdd.screenplay.questions.Text;
-import ui.ToDoMvcPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.List;
+public class FireFoxDriverManager extends AbstractWebDriverManger {
 
-public class AddedToDoItems implements Question<List<String>> {
-
-    public static Question<List<String>> displayed() {
-        return new AddedToDoItems();
-    }
-
-    public List<String> answeredBy(Actor actor) {
-        return Text.of(ToDoMvcPage.ALL_TODO_ITEMS).viewedBy(actor).asList();
+    @Override
+    public WebDriver newDriver() {
+        WebDriverManager.firefoxdriver().setup();
+        return new FirefoxDriver();
     }
 }
